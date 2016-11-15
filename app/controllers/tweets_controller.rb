@@ -1,7 +1,6 @@
 class TweetsController < ApplicationController
 
-    before_action :move_to_index, except: :index
-
+    before_action :move_to_index
     def index
       @tweets = Tweet.includes(:user).page(params[:page]).per(5).order("created_at DESC")
     end
@@ -10,7 +9,7 @@ class TweetsController < ApplicationController
     end
 
     def create
-      Tweet.create(image: tweet_params[:gazo], text: tweet_params[:written], user_id: current_user.id)
+      Tweet.create(image: tweet_params[:written], text: tweet_params[:gazo])
     end
 
     def destroy
